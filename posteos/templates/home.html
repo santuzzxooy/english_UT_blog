@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+    {% block content %}
+    {% for post in object_list %}
+    <div class="mt-4 mb-0 ms-5 me-5 card">
+        <div class="card-body">
+        <h1 style="text-align: center;" class="card-title">{{ post.title }}</h1>
+        <h3 style="text-align: center;" class="card-title">{{ post.sub }}</h3>
+          <p style="text-align: justify;">{{ post.first }}</p>
+          <img src="{{post.image.url}}" class="card-img-top" alt="...">
+          {% if post.second %}
+          <p class="mt-3" style="text-align: justify;">{{ post.second }}</p>
+          {% endif %}
+          {% if post.third %}
+          <p style="text-align: justify;">{{ post.third }}</p>
+          {% endif %}
+          <p>Date: {{ post.date }}</p>
+          <p>Source: {{ post.bibliography }}</p>
+        </div>
+    </div>
+    <div class="mt-1 mb-5 ms-5 me-5">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#{{ post.pk }}" aria-expanded="false" aria-controls="collapseExample">
+          {% if post.timage %}Show reference pictures{% else %}Show reference picture{% endif %}
+        </button>
+      <div class="collapse" id="{{ post.pk }}">
+        <div class="row">
+          {% if post.simage %}
+          <div class="m-2 col-sm-4 mb-3 mb-sm-0">
+                <img src="{{post.simage.url}}" class="card-img-top" alt="...">
+          </div>
+          {% endif %}
+
+          {% if post.timage %}
+          <div class="col-sm-4">
+                <img src="{{post.timage.url}}" class="card-img-top" alt="...">
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+    {% endblock content %}
+</body>
+</html>
